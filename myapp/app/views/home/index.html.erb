@@ -1,7 +1,63 @@
-<h1>TEAM TSS!</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
-<% if user_signed_in? %>
-  <%= link_to "로그아웃", destroy_user_session_path, data: {method: "delete"} %>
-<% else %>
-  <%= link_to "로그인", new_user_session_path %>
-<% end %>
+<div id="spa" class="container ui grid">
+  <div id="app-view" class="conatiner twelve wide column">
+    <nav id="nav-view">
+      <div class="ui secondary menu">
+        <a class="active item" data-nav-value="home">
+          Home
+        </a>
+        <a class="item" data-nav-value="chat">
+          Chat
+        </a>
+        <a class="item" data-nav-value="guild">
+          Guild
+        </a>
+        <a class="item" data-nav-value="game">
+          Game
+        </a>
+        <div class="right menu">
+          <div class="item">
+            <div class="ui icon input">
+              <input type="text" placeholder="Search...">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+            <a class="ui item">
+              Login
+            </a>
+        </div>
+      </div>
+    </nav>
+
+    <div id="main-view">
+      <span>This is Home in main-view!</span>
+    </div>
+  </div>
+  <div id="side-bar-view" class="four wide column" style="background-color: blue; ">
+    <div class="friends">
+    </div>
+    <div class="active-users">
+    </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  </div>
+</div>
+
+
+<%= javascript_pack_tag 'app' %>
+
