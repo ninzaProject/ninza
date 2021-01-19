@@ -1,6 +1,11 @@
 // import { Router } from './internal'
+import * as semantic from './semantic.min'
 import { AppView } from './internal'
 
 // router = new Router();
-Backbone.history.start();
-let appView = new AppView();
+
+$(window).on('load', function() {
+    Backbone.history.start();
+    let appView = new AppView();
+    }
+);

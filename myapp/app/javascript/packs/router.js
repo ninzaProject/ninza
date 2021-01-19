@@ -1,5 +1,6 @@
 // import { NavView } from "./views/nav-view";
-import { HomeView, ChatView, GuildView, GameView } from './internal'
+import { fetchContainer, hideModal } from './helper';
+import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView } from './internal'
 
 let Router = Backbone.Router.extend({
   routes: {
@@ -7,45 +8,73 @@ let Router = Backbone.Router.extend({
     'home' : 'callHomeView',
     'chat' : 'callChatView',
     'guild' : 'callGuildView',
-    'game' : 'callGameView'
+    'game' : 'callGameView',
+    'signup': 'callSignupView',
+    'signin': 'callSigninView',
+    'logout': 'callLogoutView'
   },
 
   // 아래 callXXXXView 들은 main 페이지의 종류
   callHomeView: function() {
-    view = new HomeView();
-    this.render(view);
+    this.renderMainView(new HomeView());
   },
 
   callChatView: function() {
-    view = new ChatView();
-    this.render(view);
+    if (isLoggedIn()) {
+      this.renderMainView(new ChatView());
+    }
+    else
+      this.renderModalView(new SigninView());
   },
 
   callGuildView: function() {
-    view = new GuildView();
-    this.render(view);
+    if (isLoggedIn())
+      this.renderMainView(new GuildView());
+    else
+      this.renderModalView(new SigninView());
   },
 
   callGameView: function() {
-    view = new GameView();
-    this.render(view);
+    this.renderMainView(new GameView());
+    // this.render(new GameView());
   },
 
-  render: function (view) {
-    //Close the current view
-    if (this.currentView) {
-        this.currentView.remove();
+  callSignupView: function() {
+    this.renderModalView(new SignupView());
+  },
+
+  callSigninView: function() {
+    this.renderModalView(new SigninView());
+  },
+
+  callLogoutView: function() {
+    sessionStorage.removeItem('status');
+    fetchContainer('/users/logout');
+    resetSignButton();
+    this.renderMainView(new HomeView());
+  },
+
+  renderMainView: function (view) {
+    if (this.currentMainView) {
+      this.currentMainView.remove();
     }
-
-    //render the new view
     view.render();
+    this.currentMainView = view;
+    return this;
+  },
 
-    //Set the current view
-    this.currentView = view;
-
+  renderModalView: function (view) {
+    view.render();
+    this.currentModalView = view;
     return this;
   }
 });
+
+function resetSignButton() {
+  $('a[data-sign-value=signin]').removeClass('invisible');
+  $('a[data-sign-value=signup]').removeClass('invisible');
+  $('a[data-sign-value=logout]').addClass('invisible');
+}
 
 export let router = new Router();
 

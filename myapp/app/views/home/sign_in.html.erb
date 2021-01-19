@@ -1,0 +1,65 @@
+<style>
+
+</style>
+
+<div id="logout-button" class="ui button invisible">로그아웃</div>
+
+<div id="signin-modal" class="ui tiny modal form">
+    <i class="close icon"></i>
+    <div class="header">
+        Have a good game!
+    </div>
+    <div class="field content">
+        <label>Intra ID</label>
+        <input type="text" name="intra-id" placeholder="intra-id">
+    </div>
+    <div class="field content">
+        <label>password</label>
+        <input type="password" name="password" placeholder="password">
+    </div>
+    <div class="actions">
+        <div id="signin-error" class="ui pointing red label invisible"></div>
+        <div class="ui green right labeled icon button">
+            로그인
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+<%= javascript_pack_tag 'semantic' %>
+
+<script>
+    let modal_id = '#signin-modal';
+    $(modal_id).modal('show');
+    $(modal_id + ' .button').on('click', function(e) {
+        let data = {
+          "intra_id": $(modal_id + ' input').eq(0).val(),
+          "password": $(modal_id + ' input').eq(1).val()
+        }
+        fetch('/users/signin', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            "X-CSRF-Token": getToken(),
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({'user': data})
+        })
+        .then(response => response.json())
+        .then(function(result){
+          if (result.hasOwnProperty('user')) {
+            console.log(result['user']);
+            $(modal_id).modal('hide');
+            $('#logout-button').removeClass('invisible');
+          }
+          else {
+            $('#signin-error').html(result['errors']['message']);
+            $('#signin-error').removeClass('invisible');
+          }
+        });
+    });
+
+    $('#logout-button').on('click', function(e) { fetch('/users/logout') } );
+
+
+</script>
