@@ -14,18 +14,31 @@ class HomeController < ApplicationController
         end
     end
 
+    # 로그인 성공하면 ActionCable.server.broadcast "side_bar_channel", message: data
     def signin
         if User.exists?(signin_params)
             user = User.find_by_intra_id(params[:user][:intra_id]);
             session[:id] = user.id.to_s
+            # user.update(status: "online")
+            user.status = "online"
+            user.save
             return render :json => { user: user }
         end
         render :json => { :errors => {'message': 'login failure'} }
     end
 
     def logout
+        user = User.find_by_id(session[:id]);
+        user.status = "offline"
+        # user.update(status: "offline")
+        user.save
         session[:id] = ""
         render :json => { :result => {'message': 'logout success'} }
+    end
+
+    def logined_user_list
+       user_list = User.where.not(status: 'offline').select(:intra_id, :status)
+        render :json => { list: user_list }
     end
 
     private

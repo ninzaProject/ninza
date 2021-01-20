@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   post '/users/signup', to: 'home#signup'
   post '/users/signin', to: 'home#signin'
   get '/users/logout', to: 'home#logout'
+
+  get '/users/logined_user_list', to: 'home#logined_user_list'
 end
-#

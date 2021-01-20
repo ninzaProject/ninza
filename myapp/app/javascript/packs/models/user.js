@@ -1,4 +1,3 @@
-export let User = Backbone.Model.extend({
 //   defaults: {
 //       type: 'guest', // 로그인하면 user, admin이면 admin
 //   },
@@ -10,19 +9,16 @@ export let User = Backbone.Model.extend({
 // Home 화면이 똭!
 
 //   url: 'users/' + this.id,
-
-  initialize: function() {
-    // this.is_login = false;
-    this.id = null;
-    this.type = "GUEST"; // user, admin, Chat Owner
-    this.email = null;
-    this.status = null;  // 접속 여부, 게임 중
-  },
-  // let temp =  fetch() => JSON
-  // temp <- 값이 담기고
-  // User.name = temp['name']
+// GUEST로 입장했을 때 모델을 만들ㅇ것인가 말 것인가
+// 로그인을 하는 순간 만들었으면 좋겠다. 가 저의 의견.
+export let User = Backbone.Model.extend({
+  initialize: function(data) {
+    // console.log("New model " + data['id']);
+    this.id = data['id'];
+    this.type = data['type']; // service owner, web admin, normal_user
+    // this.email = data['email'];
+    this.status = data['status'];  // 접속 여부, 게임 중
+    // this.guild = data['guild'];
+    // this.ladder_score = data['ladder_score'];
+},
 });
-
-// login 여부를 user 객체로 판단할것인가 혹은 쿠키로 인증여부를 확인할 것인가?
-
-// user <- (guest, member, admin)

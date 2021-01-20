@@ -1,6 +1,7 @@
 // import { NavView } from "./views/nav-view";
 import { fetchContainer, hideModal } from './helper';
-import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView } from './internal'
+import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView, SideBarView } from './internal'
+// import { SideBarView } from './views/side-bar-view';
 
 let Router = Backbone.Router.extend({
   routes: {
@@ -14,9 +15,9 @@ let Router = Backbone.Router.extend({
     'logout': 'callLogoutView'
   },
 
-  // 아래 callXXXXView 들은 main 페이지의 종류
   callHomeView: function() {
     this.renderMainView(new HomeView());
+    // this.renderSideBarView(new SideBarView());
   },
 
   callChatView: function() {
@@ -60,6 +61,12 @@ let Router = Backbone.Router.extend({
     }
     view.render();
     this.currentMainView = view;
+    return this;
+  },
+
+  renderSideBarView: function (view) {
+    view.render();
+    this.currentSideBarView = view;
     return this;
   },
 

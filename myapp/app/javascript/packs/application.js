@@ -6,7 +6,7 @@
 //= require semantic-ui
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+// import "channels"
 import "jquery"
 
 Rails.start()

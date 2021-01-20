@@ -1,4 +1,5 @@
 import { router } from '../internal'
+import { Users } from '../internal'
 
 export let SigninView = Backbone.View.extend({
     el: '#signin-modal',
@@ -21,10 +22,14 @@ export let SigninView = Backbone.View.extend({
         this.data['user']['password'] = $(this.input).eq(1).val();
         // fetchContainer.bind(this, '/users/login', 'POST', this.data).bind.then(this, function)
         let obj = this;
+
         fetchContainer('/users/signin', 'POST', this.data).then(function(result) {
+          console.log("signin")
             if (result.hasOwnProperty('user')) {
                 sessionStorage.setItem('status', 'login');
                 $(obj.modal_id).modal('hide');
+                $(obj.modal_id).modal.intra_id = '';
+                $(obj.modal_id).modal.password = '';
                 $('a[data-sign-value=signin]').addClass('invisible');
                 $('a[data-sign-value=signup]').addClass('invisible');
                 $('a[data-sign-value=logout]').removeClass('invisible');

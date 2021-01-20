@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_062311) do
+ActiveRecord::Schema.define(version: 2021_01_20_081734) do
 
   create_table "users", force: :cascade do |t|
     t.string "intra_id", default: "", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_01_19_062311) do
     t.string "token", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status", default: "offline", null: false
   end
 
 end
