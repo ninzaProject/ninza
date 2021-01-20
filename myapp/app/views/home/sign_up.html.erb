@@ -1,0 +1,73 @@
+<style>
+    #signup-modal .field:nth-child(4) {
+      padding: 0 1.5rem
+    }
+    #signup-error.invisible {
+      display: none;
+    }
+</style>
+
+<div id="signup-modal" class="ui tiny modal form">
+    <i class="close icon"></i>
+    <div class="header">
+        Pong의 세계에 온 걸 환영해!
+    </div>
+    <div class="field content">
+        <label>Intra ID</label>
+        <input type="text" name="intra-id" placeholder="intra-id">
+    </div>
+    <div class="field content">
+        <label>email</label>
+        <input type="text" name="email" placeholder="email">
+    </div>
+    <div class="field content">
+        <label>password</label>
+        <input type="password" name="password" placeholder="password">
+    </div>
+    <div class="actions">
+        <div id="signup-error" class="ui pointing red label invisible"></div>
+        <div class="ui green right labeled icon button">
+            회원가입
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+<%= javascript_pack_tag 'semantic' %>
+
+<script>
+    let modal_id = '#signup-modal';
+    $(modal_id).modal('show');
+    $(modal_id + ' .button').on('click', function(e) {
+        let data = {
+          "intra_id": $(modal_id + ' input').eq(0).val(),
+          "email": $(modal_id + ' input').eq(1).val(),
+          "password": $(modal_id + ' input').eq(2).val()
+        }
+        fetch('/users/signup', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            "X-CSRF-Token": getToken(),
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({'user': data})
+        })
+        .then(response => response.json())
+        .then(function(result){
+          if (result.hasOwnProperty('user')) {
+            console.log(result['user']);
+            $(modal_id).modal('hide');
+          }
+          else {
+            $('#signup-error').html(result['errors']['message']);
+            $('#signup-error').removeClass('invisible');
+          }
+        });
+    });
+
+    function getToken() {
+      return $('meta[name=csrf-token]')[0].getAttribute('content');
+    }
+
+</script>
