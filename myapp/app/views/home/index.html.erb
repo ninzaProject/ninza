@@ -5,75 +5,81 @@
 <%= render partial: 'signin_modal' %>
 <%= render partial: 'signup_modal' %>
 
-<div id="spa" class="container ui grid">
-  <div id="app-view" class="conatiner twelve wide column">
-    <nav id="nav-view">
-      <div class="ui top fixed inverted menu">
-        <a class="ui item" data-nav-value="home">
-          Home
-        </a>
-        <a class="item" data-nav-value="chat">
-          Chat
-        </a>
-        <a class="item" data-nav-value="guild">
-          Guild
-        </a>
-        <a class="ui simple dropdown item">
-          Game
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <div class="item">친선전</div>
-            <div class="item">승급전</div>
-            <div class="item">길드전</div>
+
+<div id="side-bar-view" class="ui sidebar right inverted vertical menu">
+  <a class="item">
+    1
+  </a>
+  <a class="item">
+    2
+  </a>
+  <a class="item">
+    3
+  </a>
+</div>
+
+<div class="pusher">
+  <div id="spa" class="ui container grid">
+    <div class="row">
+      <div id="app-view" class="conatiner twelve wide column">
+        <nav id="nav-view">
+          <div class="ui top fixed inverted menu">
+            <a class="ui item" data-nav-value="home">
+              Home
+            </a>
+            <a class="item" data-nav-value="chat">
+              Chat
+            </a>
+            <a class="item" data-nav-value="guild">
+              Guild
+            </a>
+            <a class="ui simple dropdown item">
+              Game
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item">친선전</div>
+                <div class="item">승급전</div>
+                <div class="item">길드전</div>
+              </div>
+            </a>
+            <a class="item" data-nav-value="rank">
+              Rank
+            </a>
+            <div class="right menu">
+              <a class="ui item signin" data-sign-value="signin">
+                Sign in
+              </a>
+              <a class="ui item signup" data-sign-value="signup">
+                Sign up
+              </a>
+              <a class="ui item logout invisible" data-sign-value="logout">
+                Logout
+              </a>
+            </div>
+            <div id="user_list" class="ui item">
+              사이드바
+            </div>
           </div>
-        </a>
-        <a class="item" data-nav-value="rank">
-          Rank
-        </a>
-        <div class="right menu">
-          <a class="ui item signin" data-sign-value="signin">
-            Sign in
-          </a>
-          <a class="ui item signup" data-sign-value="signup">
-            Sign up
-          </a>
-          <a class="ui item logout invisible" data-sign-value="logout">
-            Logout
-          </a>
-        </div>
+        </nav>
       </div>
-    </nav>
+    </div>
 
-    <div id="main-view">
-      <span>This is Home in main-view!</span>
+    <div class="row">
+      <div id="main-view">
+        <span>This is Home in main-view!</span>
+      </div>
     </div>
-  </div>
-  <div id="side-bar-view" class="four wide column">
-    <div class="friends">
-    </div>
-    <div class="active-users">
-    </div>
-  
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
   </div>
 </div>
 
 <script>$(function(){$('.ui.dropdown').dropdown()});</script>
+<script>$(function(){$('.ui.sidebar').sidebar("setting", "transition", "overlay").sidebar('toggle');})</script>
+<script>
+  $('#user_list').click(function() {
+    console.log("asd");
+    $('.ui.sidebar').sidebar('toggle');
+  })
+</script>
 
 <%= javascript_pack_tag 'app' %>
 
