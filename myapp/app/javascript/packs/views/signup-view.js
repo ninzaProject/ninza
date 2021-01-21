@@ -12,7 +12,7 @@ export let SignupView = Backbone.View.extend({
         this.input = this.modal_id + ' input';
         this.error_label = '#signup-error';
         this.data = {"user": {}};
-        $(this.modal_id).modal({ onHide: function() { router.navigate('#/home'); }} ).modal('show');
+        $(this.modal_id).modal({ onHide: function() { router.navigate('#/home'); }} ).modal('hide');
     },
 
     signup: function() {

@@ -25,14 +25,14 @@ let Router = Backbone.Router.extend({
       this.renderMainView(new ChatView());
     }
     else
-      this.renderModalView(new SigninView());
+      this.renderModalView(app.signin_view);
   },
 
   callGuildView: function() {
     if (isLoggedIn())
       this.renderMainView(new GuildView());
     else
-      this.renderModalView(new SigninView());
+      this.renderModalView(app.signin_view);
   },
 
   callGameView: function() {
@@ -45,7 +45,7 @@ let Router = Backbone.Router.extend({
   },
 
   callSigninView: function() {
-    this.renderModalView(new SigninView());
+    this.renderModalView(app.signin_view);
   },
 
   callLogoutView: function() {
@@ -73,7 +73,7 @@ let Router = Backbone.Router.extend({
   },
 
   renderModalView: function (view) {
-    view.render();
+    $(view.modal_id).modal('show');
     this.currentModalView = view;
     return this;
   }

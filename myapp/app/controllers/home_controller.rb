@@ -19,9 +19,9 @@ class HomeController < ApplicationController
         if User.exists?(signin_params)
             user = User.find_by_intra_id(params[:user][:intra_id]);
             session[:id] = user.id.to_s
-            # user.update(status: "online")
-            user.status = "online"
-            user.save
+            user.update(status: "online")
+            # user.status = "online"
+            # user.save
             return render :json => { user: user }
         end
         render :json => { :errors => {'message': 'login failure'} }
@@ -29,9 +29,9 @@ class HomeController < ApplicationController
 
     def logout
         user = User.find_by_id(session[:id]);
-        user.status = "offline"
-        # user.update(status: "offline")
-        user.save
+        user.update(status: "offline")
+        # user.status = "offline"
+        # user.save
         session[:id] = ""
         render :json => { :result => {'message': 'logout success'} }
     end

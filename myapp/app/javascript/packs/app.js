@@ -1,4 +1,3 @@
-// import { Router } from './internal'
 import * as semantic from './semantic.min'
 import { AppView } from './internal'
 
