@@ -9,6 +9,7 @@ export function connectSideBarChannel() {
     },
 
     disconnected() {
+      console.log("DISCONNECTED!!!!!!!!!1")
       // Called when the subscription has been terminated by the server
     },
 

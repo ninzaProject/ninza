@@ -5,6 +5,7 @@ export let UserStatusView = Backbone.View.extend({
     tagName: 'li',
     template: _.template($('#user-status-view').html()),
     initialize: function() {
+        this.id = this.model.attributes.id;
         this.intra_id = this.model.attributes.intra_id;
         this.status = this.model.attributes.status;
     },

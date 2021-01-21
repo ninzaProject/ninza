@@ -53,7 +53,11 @@ let Router = Backbone.Router.extend({
     sessionStorage.removeItem('status');
     fetchContainer('/users/logout');
     resetSignButton();
+
+    // 로그아웃 되면 해야될 추가 작업
     app.side_bar_view.resetSideBar();
+    app.side_bar_channel.disconnected();
+
     this.renderMainView(new HomeView());
   },
 

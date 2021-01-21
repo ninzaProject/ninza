@@ -1,8 +1,8 @@
-import { Router } from '../internal'
+import { app, Router } from '../internal'
 import { Users } from '../internal'
 import { User } from '../internal'
 import { UserStatusView } from '../internal'
-
+import { connectSideBarChannel } from '../internal'
 
 // 생성과 동시에 딱 한번만 new로 만들자.
 // 어느  시점에 만들지?
@@ -47,3 +47,5 @@ export let SideBarView = Backbone.View.extend({
     this.$el.children().children().remove();
   }
 })
+
+// app.channels.side_bar

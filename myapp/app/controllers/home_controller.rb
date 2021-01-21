@@ -7,7 +7,8 @@ class HomeController < ApplicationController
     def signup
         begin
             user = User.create(signup_params)
-            session[:id] = user.id.to_s
+            cookies.encrypted[:id] = user.id.to_s
+            # session[:id] = user.id.to_s
             render :json => { user: user }
         rescue => exception
             render :json => { :errors => {'message': 'validation failure'} }
@@ -18,7 +19,11 @@ class HomeController < ApplicationController
     def signin
         if User.exists?(signin_params)
             user = User.find_by_intra_id(params[:user][:intra_id]);
-            session[:id] = user.id.to_s
+            # session[:id] = user.id.to_s
+            cookies.encrypted[:id] = user.id.to_s
+            p "-----------------------"
+            p cookies.encrypted[:id]
+            p "-----------------------"
             user.update(status: "online")
             # user.status = "online"
             # user.save
@@ -28,16 +33,16 @@ class HomeController < ApplicationController
     end
 
     def logout
-        user = User.find_by_id(session[:id]);
+        user = User.find_by_id(cookies.encrypted[:id]);
         user.update(status: "offline")
         # user.status = "offline"
         # user.save
-        session[:id] = ""
+        cookies.encrypted[:id] = ""
         render :json => { :result => {'message': 'logout success'} }
     end
 
     def logined_user_list
-       user_list = User.where.not(status: 'offline').select(:intra_id, :status)
+       user_list = User.where.not(status: 'offline').select(:id, :intra_id, :status)
         render :json => { list: user_list }
     end
 

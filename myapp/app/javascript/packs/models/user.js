@@ -15,10 +15,8 @@ export let User = Backbone.Model.extend({
   initialize: function(data) {
     // console.log("New model " + data['id']);
     this.id = data['id'];
+    this.intra_id = data['intra_id'];
     this.type = data['type']; // service owner, web admin, normal_user
-    // this.email = data['email'];
     this.status = data['status'];  // 접속 여부, 게임 중
-    // this.guild = data['guild'];
-    // this.ladder_score = data['ladder_score'];
 },
 });
