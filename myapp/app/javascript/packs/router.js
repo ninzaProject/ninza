@@ -2,6 +2,7 @@
 import { fetchContainer, hideModal } from './helper';
 import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView, SideBarView } from './internal'
 // import { SideBarView } from './views/side-bar-view';
+import { app } from './internal'
 
 let Router = Backbone.Router.extend({
   routes: {
@@ -17,7 +18,6 @@ let Router = Backbone.Router.extend({
 
   callHomeView: function() {
     this.renderMainView(new HomeView());
-    // this.renderSideBarView(new SideBarView());
   },
 
   callChatView: function() {
@@ -49,9 +49,11 @@ let Router = Backbone.Router.extend({
   },
 
   callLogoutView: function() {
+    // SideBarView 초기화
     sessionStorage.removeItem('status');
     fetchContainer('/users/logout');
     resetSignButton();
+    app.side_bar_view.resetSideBar();
     this.renderMainView(new HomeView());
   },
 

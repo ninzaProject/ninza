@@ -1,3 +1,4 @@
+export let app = {};
 export { router } from './router'
 export { AppView } from './views/app-view'
 export { NavView } from './views/nav-view'

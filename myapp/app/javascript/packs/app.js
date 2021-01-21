@@ -2,10 +2,10 @@
 import * as semantic from './semantic.min'
 import { AppView } from './internal'
 
-// router = new Router();
+import { app } from './internal'
 
 $(window).on('load', function() {
-    Backbone.history.start();
-    let appView = new AppView();
-    }
+  Backbone.history.start();
+  app.app_view = new AppView();
+  }
 );
