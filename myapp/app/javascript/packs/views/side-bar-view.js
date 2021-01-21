@@ -4,19 +4,6 @@ import { User } from '../internal'
 import { UserStatusView } from '../internal'
 import { connectSideBarChannel } from '../internal'
 
-// 생성과 동시에 딱 한번만 new로 만들자.
-// 어느  시점에 만들지?
-//   클라이언트가 웹에 접속하는 순간 바로 생성
-// 게스트는 현재 접송중인 유저를 보지 못한다. 즉 user_list가 생성되지 않은 상태
-// 그러면 언제 user_list 를 만들지?
-//    로그인 하는 순간 user_list 를 만든다 -> signin-view.js 파일에 SideBarView를 includee 하
-// side_bar_view 파일에서
-//   const SideBarView = {};
-//   SideBarBiew.side_bar_view = Backbone.View ....
-//   SideBarView.users = new SideBarView.side_bar_view();
-// 이 녀석만 전역화 해서 사용한다.
-
-
 export let SideBarView = Backbone.View.extend({
   el: '#side-bar-view',
 
@@ -28,22 +15,21 @@ export let SideBarView = Backbone.View.extend({
   },
 
   addOne: function(user) {
-    console.log("Someone is added");
-    let user_status_view = new UserStatusView({model: user})
-    this.$el.children().append(user_status_view.render().$el);
+    console.log(user.intra_id + " is added");
+
+    let user_status_view = new UserStatusView({id: user.id, model: user})
+    this.$el.append(user_status_view.render().$el);
   },
 
   removeOne: function(user) {
     console.log("SomeOne is deleted");
-    let lis = this.$el.children().children();
-    $('#' +user.id).parent().remove();
-    // for (let i = 0; i < lis.length; i++) {
-    //   // aaa.side_bar_view.$el.children().children()[2]["innerText"]
-    //   if (user.id == lis[i].id) {
-    //     lis[i].remove();
-    //     break ;
-    //   }
-    // }
+    let lis = this.$el.children();
+    for (let i = 0; i < lis.length; i++) {
+      if (user.id == lis[i].id) {
+        lis[i].remove();
+        break ;
+      }
+    }
   },
 
   makeUserList: function() {
@@ -55,18 +41,12 @@ export let SideBarView = Backbone.View.extend({
     let user_model = new User(user);
     obj.user_list.add(user_model);
     }
-  })
-  .then(function() {
-    for (let user of obj.user_list) {
-    let user_status_view = new UserStatusView({model: user})
-    obj.$el.children().append(user_status_view.render().$el);
-    }
   });
   },
 
   resetSideBar: function() {
     this.user_list.reset();
-    this.$el.children().children().remove();
+    this.$el.children().remove();
   }
 })
 

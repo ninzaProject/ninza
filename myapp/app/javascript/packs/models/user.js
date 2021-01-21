@@ -9,7 +9,7 @@
 // Home 화면이 똭!
 
 //   url: 'users/' + this.id,
-// GUEST로 입장했을 때 모델을 만들ㅇ것인가 말 것인가
+// GUEST로 입장했을 때 모델을 만들 것인가 말 것인가
 // 로그인을 하는 순간 만들었으면 좋겠다. 가 저의 의견.
 export let User = Backbone.Model.extend({
   initialize: function(data) {
