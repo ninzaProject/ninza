@@ -24,6 +24,7 @@ export let SigninView = Backbone.View.extend({
         fetchContainer('/users/signin', 'POST', this.data).then(function(result) {
             if (result.hasOwnProperty('user')) {
                 sessionStorage.setItem('status', 'login');
+                sessionStorage.setItem('user_id', result['user']['id']);
                 $(obj.modal_id).modal('hide');
                 $('a[data-sign-value=signin]').addClass('invisible');
                 $('a[data-sign-value=signup]').addClass('invisible');

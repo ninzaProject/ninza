@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     def signup
         begin
             user = User.create(signup_params)
-            session[:id] = user.id.to_s
+            cookies.encrypted[:id] = user.id.to_s
             render :json => { user: user }
         rescue => exception
             render :json => { :errors => {'message': 'validation failure'} }
@@ -17,14 +17,14 @@ class HomeController < ApplicationController
     def signin
         if User.exists?(signin_params)
             user = User.find_by_intra_id(params[:user][:intra_id]);
-            session[:id] = user.id.to_s
+            cookies.encrypted[:id] = user.id.to_s
             return render :json => { user: user }
         end
         render :json => { :errors => {'message': 'login failure'} }
     end
 
     def logout
-        session[:id] = ""
+        cookies.encrypted[:id] = ""
         render :json => { :result => {'message': 'logout success'} }
     end
 

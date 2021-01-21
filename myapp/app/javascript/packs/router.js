@@ -1,6 +1,6 @@
 // import { NavView } from "./views/nav-view";
 import { fetchContainer, hideModal } from './helper';
-import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView } from './internal'
+import { SigninView, SignupView, HomeView, ChatView, GuildView, LadderGameView } from './internal'
 
 let Router = Backbone.Router.extend({
   routes: {
@@ -8,7 +8,7 @@ let Router = Backbone.Router.extend({
     'home' : 'callHomeView',
     'chat' : 'callChatView',
     'guild' : 'callGuildView',
-    'game' : 'callGameView',
+    'ladderGame' : 'callLadderGameView',
     'signup': 'callSignupView',
     'signin': 'callSigninView',
     'logout': 'callLogoutView'
@@ -34,9 +34,11 @@ let Router = Backbone.Router.extend({
       this.renderModalView(new SigninView());
   },
 
-  callGameView: function() {
-    this.renderMainView(new GameView());
-    // this.render(new GameView());
+  callLadderGameView: function() {
+    if (isLoggedIn())
+      this.renderMainView(new LadderGameView());
+    else
+      this.renderModalView(new SigninView());
   },
 
   callSignupView: function() {
@@ -64,6 +66,9 @@ let Router = Backbone.Router.extend({
   },
 
   renderModalView: function (view) {
+    if (this.currentModalView) {
+      this.currentModalView.remove();
+    }
     view.render();
     this.currentModalView = view;
     return this;
