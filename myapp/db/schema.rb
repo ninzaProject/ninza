@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_062311) do
+ActiveRecord::Schema.define(version: 2021_01_21_091609) do
+
+  create_table "guilds", force: :cascade do |t|
+    t.integer "rank", default: 1, null: false
+    t.string "name", default: "", null: false
+    t.integer "guild_points", default: 0, null: false
+    t.string "officer", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "intra_id", default: "", null: false
@@ -21,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_01_19_062311) do
     t.string "token", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-
   end
 
 end

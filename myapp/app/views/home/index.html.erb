@@ -4,6 +4,9 @@
 <%= stylesheet_link_tag 'registration', media: 'all' %>
 <%= render partial: 'signin_modal' %>
 <%= render partial: 'signup_modal' %>
+<%= render partial: 'guilds' %>
+<%= render partial: 'guild' %>
+<%= render partial: 'create_guild' %>
 
 <div id="spa" class="container ui grid">
   <div id="app-view" class="conatiner twelve wide column">
@@ -15,8 +18,13 @@
         <a class="item" data-nav-value="chat">
           Chat
         </a>
-        <a class="item" data-nav-value="guild">
+        <a class="ui simple dropdown item" data-nav-value="guilds">
           Guild
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item" id="create-guild-button" data-nav-value="create">길드만들기</div>
+            <div class="item" id="watch-guild-button" data-nav-value="guilds">길드 구경하기</div>
+          </div>
         </a>
         <a class="ui simple dropdown item">
           Game
@@ -43,33 +51,15 @@
         </div>
       </div>
     </nav>
-
-    <div id="main-view">
-      <span>This is Home in main-view!</span>
-    </div>
   </div>
   <div id="side-bar-view" class="four wide column">
     <div class="friends">
     </div>
     <div class="active-users">
     </div>
-  
   </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
+  <div id="main-view" style="margin-top: 200px">
+    <span>This is Home in main-view!</span>
   </div>
 </div>
 

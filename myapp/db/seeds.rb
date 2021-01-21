@@ -23,3 +23,10 @@ users = User.create([
   {intra_id: 'test9', email: 'test9@student42.co.kr', password: '123123'},
   {intra_id: 'test10', email: 'test10@student42.co.kr', password: '123123'},
 ])
+
+guilds = Guild.create([
+  {rank: 1, name: "Gon", guild_points: 10000, officer: "iwoo"},
+  {rank: 2, name: "Gam", guild_points: 8000, officer: "yohlee"},
+  {rank: 3, name: "Gun", guild_points: 5000, officer: "jujeong"},
+  {rank: 4, name: "Lee", guild_points: 2000, officer: "sanam"}
+])

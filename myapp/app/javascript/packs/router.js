@@ -1,17 +1,18 @@
 // import { NavView } from "./views/nav-view";
 import { fetchContainer, hideModal } from './helper';
-import { SigninView, SignupView, HomeView, ChatView, GuildView, GameView } from './internal'
+import { SigninView, SignupView, HomeView, ChatView, GuildsView, GuildView, GameView, GuildFormView } from './internal'
 
 let Router = Backbone.Router.extend({
   routes: {
     '': 'callHomeView',
     'home' : 'callHomeView',
     'chat' : 'callChatView',
-    'guild' : 'callGuildView',
+    'guilds' : 'callGuildsView',
+    'create' : 'callGuildFormView',
     'game' : 'callGameView',
     'signup': 'callSignupView',
     'signin': 'callSigninView',
-    'logout': 'callLogoutView'
+    'logout': 'callLogoutView',
   },
 
   // 아래 callXXXXView 들은 main 페이지의 종류
@@ -27,9 +28,17 @@ let Router = Backbone.Router.extend({
       this.renderModalView(new SigninView());
   },
 
-  callGuildView: function() {
+  callGuildsView: function() {
     if (isLoggedIn())
-      this.renderMainView(new GuildView());
+    // TODO: guild view 만들 때 기존 guild view는 삭제해줘야함..?
+      this.renderMainView(new GuildsView());
+    else
+      this.renderModalView(new SigninView());
+  },
+
+  callGuildFormView: function() {
+    if (isLoggedIn())
+      this.renderMainView(new GuildFormView());
     else
       this.renderModalView(new SigninView());
   },
@@ -55,9 +64,9 @@ let Router = Backbone.Router.extend({
   },
 
   renderMainView: function (view) {
-    if (this.currentMainView) {
-      this.currentMainView.remove();
-    }
+    // if (this.currentMainView) {
+    //   this.currentMainView.remove();
+    // }
     view.render();
     this.currentMainView = view;
     return this;

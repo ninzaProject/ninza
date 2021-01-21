@@ -12,6 +12,11 @@ export let NavView = Backbone.View.extend({
 
     initialize: function() {
         // listenTo -> 이건 모델에 걸어놓는거
+        if (isLoggedIn()) {
+            console.log("logged in now!")
+        } else {
+            console.log("logged out now!")
+        }
     },
     
     // 'data-nav-menu'

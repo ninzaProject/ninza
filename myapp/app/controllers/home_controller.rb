@@ -36,4 +36,5 @@ class HomeController < ApplicationController
     def signin_params
         params.require(:user).permit(:intra_id, :password)
     end
+
 end
