@@ -6,17 +6,6 @@ export let Users = Backbone.Collection.extend({
   url: '/users/logined_user_list',
   model: User,
 
-  // initialize: function() {
-
-  //   let user_list = fetchContainer('/users/logined_user_list')
-  //     .then(function(result) {
-  //       // window.aaa = result.list;
-  //       for (let user of result.list) {
-  //         this.create( {id: user.intra_id, type: "normal", status: user.status} );
-  //         // console.log(user);
-  //       }
-  //     });
-  // },
 });
 
     // 서버에서 모든 로그인 유저를 가져오는 api가 없다.

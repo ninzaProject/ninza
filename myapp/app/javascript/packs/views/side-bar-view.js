@@ -22,6 +22,28 @@ export let SideBarView = Backbone.View.extend({
 
   initialize: function() {
     this.user_list = new Users();
+
+    this.listenTo(this.user_list, 'add', this.addOne);
+    this.listenTo(this.user_list, 'remove', this.removeOne);
+  },
+
+  addOne: function(user) {
+    console.log("Someone is added");
+    let user_status_view = new UserStatusView({model: user})
+    this.$el.children().append(user_status_view.render().$el);
+  },
+
+  removeOne: function(user) {
+    console.log("SomeOne is deleted");
+    let lis = this.$el.children().children();
+    $('#' +user.id).parent().remove();
+    // for (let i = 0; i < lis.length; i++) {
+    //   // aaa.side_bar_view.$el.children().children()[2]["innerText"]
+    //   if (user.id == lis[i].id) {
+    //     lis[i].remove();
+    //     break ;
+    //   }
+    // }
   },
 
   makeUserList: function() {

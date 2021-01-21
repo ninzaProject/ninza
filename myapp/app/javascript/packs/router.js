@@ -56,7 +56,7 @@ let Router = Backbone.Router.extend({
 
     // 로그아웃 되면 해야될 추가 작업
     app.side_bar_view.resetSideBar();
-    app.side_bar_channel.disconnected();
+    app.side_bar_channel.unsubscribe();
 
     this.renderMainView(new HomeView());
   },

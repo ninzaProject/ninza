@@ -1,4 +1,5 @@
 import consumer from "./consumer"
+import { app, User } from "../packs/internal"
 
 // 로그인을 하면 이 구독자가 된다.
 export function connectSideBarChannel() {
@@ -9,12 +10,43 @@ export function connectSideBarChannel() {
     },
 
     disconnected() {
-      console.log("DISCONNECTED!!!!!!!!!1")
+      console.log("DISCONNECTED!!!!!!!!!")
+      // consumer.subscriptions.remove();
       // Called when the subscription has been terminated by the server
     },
 
     received(data) {
-      console.log(data);
+      // online 이면 유저가 새롭게 추가된 상황
+      // offline이면 유저가 로그아웃한 상황
+      // game 이면 유저가 게임중인 상황
+      // 새로운 유저가 로그인 한 상황
+      // 1. 리스트에 있는지 확인하고 status 를 확인한다
+      // 2. status가 offline 이면 컬렉션에서 모델을 삭제한다.
+      // 3. status가 online 이면 컬렉션에서 모델을 추가한다.
+      // 게임은 이후에 추가해주자.
+
+      if (data.status == "online") {
+        if (app.side_bar_view.user_list.where({id: data.id}) == "") {
+          app.side_bar_view.user_list.add(new User(data));
+        }
+      }
+      else if (data.status == "offline") {
+          console.log("off add list")
+          app.side_bar_view.user_list.remove(app.side_bar_view.user_list.where({id: data.id}));
+      }
+      else {
+        console.log("GAME!!!");
+      }
+
+      // console.log(app.side_bar_view.user_list.where({id: data.id}));
+      // console.log(app.side_bar_view.user_list.where({id: -1}));
+
+      // console.log(app.side_bar_view.user_list.where({id: 1}));
+      // if (app.side_bar_view.userlist)
+      // 1. 컬렉션에 모델을 추가해준다. -> model User, collection Users
+      // 2. collection -> add 에 이벤트를 걸어야 한다(remove 포함)
+      // 3. add listen에서는
+      //  렌더링 한번 더해준다.
       // Called when there's incoming data on the websocket for this channel
     }
   });
