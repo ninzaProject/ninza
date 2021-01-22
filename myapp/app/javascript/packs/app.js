@@ -3,7 +3,7 @@ import { AppView } from './internal'
 import { app } from './internal'
 
 $(window).on('load', function() {
-// Backbone.history.start();
+  Backbone.history.start();
   app.app_view = new AppView();
   }
 );
